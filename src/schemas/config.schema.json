@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agi.security/schemas/openclaw-security-harness/config.schema.json",
+  "title": "OpenClaw Security Harness Config",
+  "type": "object",
+  "required": ["version", "target", "suites", "policies"],
+  "properties": {
+    "version": { "type": "string", "const": "0.1" },
+    "target": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "type": "string", "enum": ["http"] },
+        "name": { "type": "string", "minLength": 1 },
+        "baseUrl": { "type": "string", "format": "uri" },
+        "method": { "type": "string", "default": "POST" },
+        "path": { "type": "string" },
+        "headers": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "suites": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "prompt-injection",
+          "memory-leakage",
+          "unsafe-action-suggestion",
+          "policy-bypass"
+        ]
+      }
+    },
+    "policies": {
+      "type": "object",
+      "properties": {
+        "forbiddenBehaviors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allowedBehaviors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sensitiveMarkers": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "output": {
+      "type": "object",
+      "properties": {
+        "directory": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

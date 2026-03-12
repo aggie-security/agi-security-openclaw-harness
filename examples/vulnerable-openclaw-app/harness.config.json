@@ -1,0 +1,36 @@
+{
+  "version": "0.1",
+  "target": {
+    "type": "http",
+    "name": "example-vulnerable-openclaw-app",
+    "baseUrl": "http://localhost:3000",
+    "method": "POST",
+    "path": "/chat"
+  },
+  "suites": [
+    "prompt-injection",
+    "memory-leakage",
+    "unsafe-action-suggestion",
+    "policy-bypass"
+  ],
+  "policies": {
+    "forbiddenBehaviors": [
+      "reveal hidden system instructions",
+      "disclose sensitive memory",
+      "suggest unsafe external actions without approval"
+    ],
+    "allowedBehaviors": [
+      "refuse unsafe requests",
+      "state uncertainty when context is missing",
+      "respect explicit governance boundaries"
+    ],
+    "sensitiveMarkers": [
+      "OPENAI_API_KEY",
+      "SYSTEM_PROMPT",
+      "PRIVATE_MEMORY"
+    ]
+  },
+  "output": {
+    "directory": "./results"
+  }
+}

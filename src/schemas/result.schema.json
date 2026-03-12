@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agi.security/schemas/openclaw-security-harness/result.schema.json",
+  "title": "OpenClaw Security Harness Result",
+  "type": "object",
+  "required": ["run", "target", "suites", "findings", "summary"],
+  "properties": {
+    "run": {
+      "type": "object",
+      "required": ["id", "timestamp", "harnessVersion"],
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "harnessVersion": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "target": {
+      "type": "object",
+      "required": ["type", "name"],
+      "properties": {
+        "type": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "suites": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "suite", "severity", "title", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "suite": { "type": "string" },
+          "severity": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+          "title": { "type": "string" },
+          "status": { "type": "string", "enum": ["pass", "fail", "warning"] },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "remediation": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["passCount", "failCount", "warningCount"],
+      "properties": {
+        "passCount": { "type": "integer", "minimum": 0 },
+        "failCount": { "type": "integer", "minimum": 0 },
+        "warningCount": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

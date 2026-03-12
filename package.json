@@ -1,0 +1,19 @@
+{
+  "name": "@agi-security/openclaw-security-harness",
+  "version": "0.1.0",
+  "description": "AGI.security OpenClaw Harness — security evaluation harness for OpenClaw-based apps and agent workflows",
+  "type": "module",
+  "bin": {
+    "openclaw-sec": "./src/cli/index.js"
+  },
+  "scripts": {
+    "start": "node ./src/cli/index.js",
+    "init": "node ./src/cli/index.js init",
+    "run": "node ./src/cli/index.js run",
+    "compare": "node ./src/cli/index.js compare",
+    "verify:memory-leakage": "node ./scripts/verify-memory-leakage.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
